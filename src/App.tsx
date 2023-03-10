@@ -3,7 +3,7 @@ import { useRoutes } from 'react-router-dom'
 import './App.css'
 import Demo from './pages/Demo/demo'
 import Home from './pages/Home/home'
-import TodoList from './pages/TodoList/TodoList'
+import TodoList from './pages/TodoList/index'
 const App: FC = () =>
 	useRoutes([
 		{
