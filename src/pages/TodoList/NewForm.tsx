@@ -1,19 +1,24 @@
-import type { FC } from 'react'
+import { ChangeEvent, FC, useState } from 'react'
 import { useReducer } from 'react'
 import './NewForm.css'
+import type { Task } from './todo-type'
 
-const TodoList: FC = () => {
-	const [userInput, setUserInput] = useReducer((state, newState) => ({ ...state, ...newState }), {
+interface TodoListProps {
+	createTodo: (newTodo: Task) => void
+}
+const TodoList: FC<TodoListProps> = ({ createTodo }) => {
+	const [userInput, setUserInput] = useReducer((state: Task, newState) => ({ ...state, ...newState }), {
 		task: '',
 	})
-
-	const handleChange = (evt) => {
+	const [id, setId] = useState(Math.random() + '')
+	// 同步任务
+	const handleChange = (evt: ChangeEvent<HTMLInputElement>) => {
 		setUserInput({ [evt.target.name]: evt.target.value })
 	}
-
-	const handleSubmit = (evt) => {
+	// 新建任务
+	const handleSubmit = (evt: React.FormEvent) => {
 		evt.preventDefault()
-		const newTodo = { id: uuid(), task: userInput.task, completed: false }
+		const newTodo = { id: Math.random() + '', task: userInput.task, completed: false }
 		createTodo(newTodo)
 		setUserInput({ task: '' })
 	}

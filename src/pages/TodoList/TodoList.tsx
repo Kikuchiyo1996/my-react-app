@@ -1,55 +1,64 @@
-import type { FC } from 'react'
+import type { FC, ChangeEvent } from 'react'
+
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
+import { Button } from 'antd'
 import './TodoList.css'
+import type { Task } from './todo-type'
+import { EditFilled, ScissorOutlined } from '@ant-design/icons'
+interface TodoListProps {
+	remove: (id: string) => void
+	wholeTask: Task
+	update: (id: string, task: string) => void
+}
 
-const TodoList: FC = ({ todo, remove, update, toggleComplete }) => {
-	/* const [isEditing, setIsEditing] = useState(false)
-	const [task, setTask] = useState(todo.task)
+const TodoList: FC<TodoListProps> = ({ remove, wholeTask, update }) => {
+	const [isEditing, setIsEditing] = useState(false)
+	const [task, setTask] = useState(wholeTask.task)
 
-	const handleClick = (evt) => {
-		remove(evt.target.id)
-	}
 	const toggleFrom = () => {
 		setIsEditing(!isEditing)
 	}
-	const handleUpdate = (evt) => {
+	// 更新任务
+	const handleUpdate = (evt: React.MouseEvent<Element, MouseEvent>) => {
 		evt.preventDefault()
-		update(todo.id, task)
+		update(wholeTask.id, task)
 		toggleFrom()
 	}
-	const handleChange = (evt) => {
+	const handleChange = (evt: ChangeEvent<HTMLInputElement>) => {
 		setTask(evt.target.value)
 	}
-	const toggleCompleted = (evt) => {
-		toggleComplete(evt.target.id)
-	} */
 
-	let result, isEditing
+	let result
 	if (isEditing) {
 		result = (
-			<div className='Todo'>
-				{/* <form className='Todo-edit-form' onSubmit={handleUpdate}>
-					<input onChange={handleChange} value={task} type='text' />
-					<button>Save</button>
-				</form> */}
-			</div>
+			<li className='Todo'>
+				<form className='Todo-edit-form'>
+					<input title='todo' onChange={handleChange} value={task} type='text' />
+					<Button onClick={handleUpdate}>Save</Button>
+				</form>
+			</li>
 		)
 	} else {
 		result = (
-			<div className='Todo'>
-				{/* <li id={todo.id} onClick={toggleCompleted} className={todo.completed ? 'Todo-task completed' : 'Todo-task'}>
-					{todo.task}
-				</li>
-				<div className='Todo-buttons'>
-					<button onClick={toggleFrom}>
-						<i className='fas fa-pen' />
+			<li className={wholeTask.completed ? 'Todo-task completed' : 'Todo-task'}>
+				<span className='task-content'>{wholeTask.task}</span>
+				<div className='btn-container'>
+					<button className='Todo-buttons' onClick={toggleFrom}>
+						Edit
+						<EditFilled />
 					</button>
-					<button onClick={handleClick}>
-						<i id={todo.id} className='fas fa-trash' />
+					<button
+						className='Todo-buttons'
+						onClick={(e) => {
+							remove(wholeTask.id)
+						}}
+					>
+						Del
+						<ScissorOutlined />
 					</button>
-				</div> */}
-			</div>
+				</div>
+			</li>
 		)
 	}
 	return result
