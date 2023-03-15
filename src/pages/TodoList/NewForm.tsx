@@ -1,6 +1,6 @@
 import { ChangeEvent, FC, useState } from 'react'
 import { useReducer } from 'react'
-import './NewForm.css'
+import './NewForm.scss'
 import type { Task } from './todo-type'
 
 interface TodoListProps {

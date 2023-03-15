@@ -3,7 +3,7 @@ import type { FC, ChangeEvent } from 'react'
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 import { Button } from 'antd'
-import './TodoList.css'
+import './TodoList.scss'
 import type { Task } from './todo-type'
 import { EditFilled, ScissorOutlined } from '@ant-design/icons'
 interface TodoListProps {

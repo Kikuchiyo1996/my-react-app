@@ -2,7 +2,7 @@ import { FC, useState } from 'react'
 import type { Task } from './todo-type'
 import NewForm from './NewForm'
 import TodoList from './TodoList'
-import './index.css'
+import './index.scss'
 
 const TodoListAPP: FC = () => {
 	const [todoLists, setTodoLists] = useState([
